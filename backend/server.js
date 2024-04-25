@@ -1,15 +1,20 @@
+require('dotenv').config()
 const express = require('express')
-
+const app = express()
 const chats= require('../backend/data/data') 
-const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const colors = require('colors')
+const userRoutes = require('../backend/routes/userRoutes')
+const {notFound,errorHandler}= require("../backend/middleware/errorMiddleware")
+const cors = require('cors')
 
-dotenv.config()
-const app = express()
+
+app.use(express.json());
+app.use(cors())
 
 
-mongoose.connect('mongodb+srv://obayomisamuel941:Ayosam2403@cluster0.iuubs1l.mongodb.net/ayoola sam chat app').then(()=>{
+
+mongoose.connect('mongodb+srv://obayomisamuel941:Ayosam2403@cluster0.iuubs1l.mongodb.net/ayoolasam').then(()=>{
   console.log('database connected succesfully'.cyan)
 })
 
@@ -18,14 +23,11 @@ mongoose.connect('mongodb+srv://obayomisamuel941:Ayosam2403@cluster0.iuubs1l.mon
 app.get('/',(req,res)=>{
   res.send('api is running successfully')
 });
-app.get('/api/chat',(req,res)=>{
-  res.send(chats)
-});
-app.get('/api/chat/:id',(req,res) => {
-  // console.log(req.params.id)
-  const singleChat = chats.find(c=>c._id === req.params.id);
-  res.send(singleChat)
-});
+
+app.use('/api/user',userRoutes)
+
+app.use(notFound)
+app.use(errorHandler)
 const PORT = process.env.PORT  || 5000
 
 app.listen(5000,()=>{
