@@ -7,6 +7,7 @@ const colors = require('colors')
 const userRoutes = require('../backend/routes/userRoutes')
 const {notFound,errorHandler}= require("../backend/middleware/errorMiddleware")
 const cors = require('cors')
+const chatRoutes = require('../backend/routes/chatRoutes')
 
 
 app.use(express.json());
@@ -18,13 +19,15 @@ mongoose.connect('mongodb+srv://obayomisamuel941:Ayosam2403@cluster0.iuubs1l.mon
   console.log('database connected succesfully'.cyan)
 })
 
-
+const serverTime = new Date();
+  console.log(serverTime);
 
 app.get('/',(req,res)=>{
   res.send('api is running successfully')
 });
 
 app.use('/api/user',userRoutes)
+app.use('/api/chat',chatRoutes)
 
 app.use(notFound)
 app.use(errorHandler)

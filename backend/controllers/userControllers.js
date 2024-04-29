@@ -77,7 +77,7 @@ const authUser =   async(req,res,next)=>{
 
   if(!user ){
     res.json({
-      message:"fail",
+      message:"user not found",
       status:false
     })
   }
@@ -111,9 +111,33 @@ const authUser =   async(req,res,next)=>{
   }
 
 
-  }
+}
+
+
+
+//SEARCH QUERY
+const allUsers = async(req,res) => {
+try{
+
+const keyword = req.query.search ? {$or:[
+  {name: {$regex: req.query.search, $options :"i"}},
+  {email: {$regex: req.query.search, $options :"i"}}
+]}:{};
+
+let users = await User.find(keyword)
+users = users.filter((user) => user._id.toString() !== req.user._id.toString())
+
+res.send(users)
+
+}catch(err){
+  console.log(err)
+}
+}
+
+
+  
 module.exports = {
   registerUser,
-  authUser
+  authUser,
+  allUsers
 }
-// module.exports = authUser

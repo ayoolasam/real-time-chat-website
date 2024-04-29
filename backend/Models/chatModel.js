@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 const chatModel = new mongoose.Schema({
 chatName:{
-  type:string,
+  type:String,
   trim:true
 },
 isGroupChat :{
