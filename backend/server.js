@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const chats= require('../backend/data/data') 
 const mongoose = require('mongoose')
-const colors = require('colors')
+
 const userRoutes = require('../backend/routes/userRoutes')
 const {notFound,errorHandler}= require("../backend/middleware/errorMiddleware")
 const cors = require('cors')
@@ -16,7 +16,7 @@ app.use(cors())
 
 
 mongoose.connect('mongodb+srv://obayomisamuel941:Ayosam2403@cluster0.iuubs1l.mongodb.net/ayoolasam').then(()=>{
-  console.log('database connected succesfully'.cyan)
+  console.log('database connected succesfully')
 })
 
 const serverTime = new Date();
@@ -34,5 +34,5 @@ app.use(errorHandler)
 const PORT = process.env.PORT  || 5000
 
 app.listen(5000,()=>{
-  console.log(`Server running on port ${PORT}`.cyan)
+  console.log(`Server running on port ${PORT}`)
 })
