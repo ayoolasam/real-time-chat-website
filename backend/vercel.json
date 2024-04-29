@@ -1,9 +1,13 @@
+
+
+
+
 {
   "version": 2,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/api/user"
+      "src": "^/api/user/(.*)",
+      "dest": "/routes/userRoutes.js"
     }
   ]
 }
