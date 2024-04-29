@@ -7,7 +7,7 @@
   "routes": [
     {
       "src": "^/api/user/(.*)",
-      "dest": "/routes/userRoutes.js"
+      "dest": "./server.js"
     }
   ]
 }
